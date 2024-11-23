@@ -1,0 +1,120 @@
+/* WaterDistributionData.css */
+body {
+    font-family: 'Arial', sans-serif;
+    margin-top: 0;
+    padding: 0;
+  }
+  
+  .water-distribution-container {
+    max-width: 80%;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #ebfbfd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .h1 {
+    /* font-size: 28px; */
+    text-align: center;
+    /* margin-bottom: 20px; */
+  }
+  
+  .dropdown-container {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    margin-bottom: 20px;
+  }
+  
+  .selected-junction {
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #3498db;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    text-align: center;
+  
+    &:hover {
+      background-color: #3498db;
+      color: #fff;
+    }
+  }
+  
+  
+  .JunctionList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    display: none; 
+    background-color: #fff;
+    border: 1px solid #3498db;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .junction-list li {
+    cursor: pointer;
+    padding: 10px;
+    border-bottom: 1px solid #3498db;
+    transition: background-color 0.3s;
+    text-align: center;
+  
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  
+    &.active {
+      background-color: #3498db;
+      color: #fff;
+    }
+  }
+  
+  .selected-junction-info {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .houses-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .houses-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    /* overflow: scroll; */
+  }
+  
+  .house-item {
+    background-color: #a3f0ff;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    text-align: center;
+  
+    &:not(:first-child) {
+      margin-top: 5px;
+    }
+  }
+  
+  .loading-spinner {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .error-message {
+    text-align: center;
+    margin-top: 20px;
+    color: #ff6347;
+  }
+  
+  

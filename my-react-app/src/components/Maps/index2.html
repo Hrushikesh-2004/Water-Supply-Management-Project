@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <style>
+        #map {
+            height: 100vh;
+            z-index: 0;
+        }
+
+        #searchbar{
+            z-index:1000;
+        }
+        .popup {
+            width: 300px;
+            background: #a9d8f7;
+            border-radius: 30px;
+            border: 2px solid black;
+            /* border: 2px #52bf97; */
+            position: absolute;
+            top: 0;
+            left: 80%;
+            transform: translate(-50%, -50%) scale(0.1);
+            text-align: start;
+            padding: 0 20px 20px;
+            color: #333;
+            visibility: hidden;
+            transition: transform 0.4s, top 0.4s;
+            font-style:oblique;
+        }
+
+        .popupTank {
+            width: 300px;
+            background: #a9d8f7;
+            border-radius: 30px;
+            border: 2px solid black;
+            /* border: 2px #52bf97; */
+            position: absolute;
+            top: 0;
+            right: 64%;
+            transform: translate(-50%, -50%) scale(0.1);
+            text-align: start;
+            padding: 0 20px 20px;
+            color: #333;
+            visibility: hidden;
+            transition: transform 0.4s, top 0.4s;
+            font-style:oblique;
+            display: flex;
+            flex-direction: column;
+            font-size: larger;
+        }
+
+        .open-popup {
+            visibility: visible;
+            top: 15%;
+            margin-top: 90px;
+            transform: translate(-50%, -50%) scale(1);
+            z-index: 1;
+        }
+
+        .open-popup-tank {
+            visibility: visible;
+            top:65%;
+            /* margin-top: 180px; */
+            transform: translate(-50%, -50%) scale(1);
+            z-index: 1;
+        }
+
+        .popup input {
+            width: 100%; /* Set the input width to 100% */
+            margin-bottom: 10px; /* Optional: Add some spacing between inputs */
+            display: block;
+        }
+
+        .popup button {
+            width: 100%; /* Set the button width to 100% */
+        }
+
+        /* #yes{
+            display: inline;
+        } */
+
+        .radio{
+            display: flex;
+            align-items: start;
+            justify-content: start;
+        }
+
+        .radio input{
+            width: 20px;
+            height: 20px;
+        }
+
+        .radio label{
+            font-size: medium;
+            font-weight: bold;
+        }
+        #right {
+            margin-bottom: 15px;
+            margin-left:1200px;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.css" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css" />
+
+
+</head>
+
+<body>
+    <div id="searchbar">
+    <input id='can-container' type="search"/>
+    <button id="can-btn" onclick= "goToLocation()">Search</button>
+    </div>
+    <div id="right" >
+        <button id="other-tab" onclick="openInOtherTab()">Open in other tab</button>
+        <button id="close-tab" onclick="closeOpenedTab()">Close opened tab</button>
+    </div>
+    <div class="add-point-by-coords">
+        <button>Add point by coordinates</button>
+    </div>
+
+    <div id="map"></div>
+    <div id="container" class="container">
+        <div id="popup" class="popup">
+            <h2 id="heading">Input Details</h2>
+            <label for="number" id="canidnumber">Enter:></label>
+            <input type="text" id="number" >
+            <br>
+            <label for="underjunction" id="junctionnumber">Enter Connected Junction Number: </label>
+            <input type="text" id="underjunction">
+            <br>
+            <label for="supplied" id="suppliedLabel">Is water supplied: </label>
+            <div class="radio">
+                <input type="radio" id="yes" value="yes" name="supplied">
+                <label for="yes">Yes</label> 
+            </div>
+            <div class="radio">
+                <input type="radio" id="no" value="no" name="supplied">
+                <label for="no">No</label>
+            </div>
+            <br>
+            <button id="closepopup" onclick="closepopup">Submit</button>
+        </div>
+        
+    </div>
+
+    <div id="container2" class="container2">
+        <div id="popupTank" class="popupTank">
+            <h2 id="heading">Input Tank Details</h2>
+            <label for="tankId">Tank Id:</label>
+            <input type="text" id="tankId" placeholder="Enter tank ID">
+            <br>
+            <label for="tankCapacity">Tank Capacity (liters):</label>
+            <input type="number" id="tankCapacity" placeholder="Enter tank capacity">
+            <br>
+            <label for="tankMaterial">Tank Material:</label>
+            <select id="tankMaterial">
+                <option value="concrete">Concrete</option>
+                <option value="steel">Steel</option>
+                <option value="plastic">Plastic</option>
+            </select>
+            <br>
+            <label for="tankDimensions">Tank Dimensions:</label>
+            <input type="text" id="tankDimensions" placeholder="Enter tank dimensions">
+            <br>
+            <label for="tankCondition">Tank Condition:</label>
+            <select id="tankCondition">
+                <option value="new">New</option>
+                <option value="used">Used</option>
+                <option value="operational">Operational</option>
+                <option value="non-operational">Non-operational</option>
+            </select>
+            <br>
+            <label for="tankColor">Tank Color:</label>
+            <input type="color" id="tankColor" value="#000000">
+            <br>
+            <button id="closepopup2" onclick="closepopup2">Submit</button>
+        </div>
+    </div>
+
+
+    <!-- JQuery Link -->
+    <script src="../jquery.js"></script>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- Leaflet Providers -->
+    <script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+
+    <script src="../leaflet-providers.js"></script>
+
+    <script src="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.js"></script>
+
+    <script type="module" src="./new-index.js"></script>
+    <script>
+        let openedWindow;
+        function openInOtherTab() {
+            const other = '../Map/index2.html';
+            openedWindow = window.open(other, 'w1');
+            let cs = document.getElementById("close-tab");
+            cs.display="flex";
+            // alert("hi");
+        }
+
+        function closeOpenedTab() {
+            // window.location.href = "http://localhost:3000/maps";
+            window.close();
+        }
+       </script>
+</body>
+
+</html>

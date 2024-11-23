@@ -1,0 +1,34 @@
+.add-point-by-coords{
+    margin-top: 100px;
+}
+
+.map-rules {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    flex: 1;
+    border: 2px solid black;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 80px;
+    height:min-content;
+    width: max-content;
+    background-color: #faf5eb;
+}
+
+.copy-icon{
+    margin-left: 8px;
+    cursor: pointer;
+}
+  
+.map-rules h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+  
+.map-rules ol {
+    list-style-type: disc;
+    padding-left: 20px;
+    font-size: larger;
+}
